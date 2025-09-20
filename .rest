@@ -1,0 +1,33 @@
+
+GET http://localhost:3000/api/products/
+
+###
+
+GET http://localhost:3000/api/products/1
+
+###
+POST http://localhost:3000/api/products/1
+
+###
+POST http://localhost:3000/api/products
+Content-Type: application/json
+
+{
+    "name": "Headphones",
+    "price": "22.00",
+    "image": "kdjfkdjkfjdkfjdk"
+}
+
+###
+DELETE http://localhost:3000/api/products/3
+
+###
+PUT http://localhost:3000/api/products/4
+Content-Type: application/json
+
+{
+    "name": "Cap",
+    "price": "33.00",
+    "image": "jkjkdjkdjfkdjf"
+}
+
