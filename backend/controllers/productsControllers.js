@@ -60,7 +60,7 @@ export default {
       `;
 
       if (updatedProduct.length === 0) {
-        res.status(500).json({ success: false, message: 'Product not found' });
+        res.status(404).json({ success: false, message: 'Product not found' });
       }
       res.status(201).json({ success: true, data: updatedProduct[0] });
     } catch (error) {
@@ -78,12 +78,10 @@ export default {
 
       res.status(200).json({ success: true, data: product[0] });
     } catch (error) {
-      res
-        .status(500)
-        .json({
-          success: false,
-          message: `Failed to fetch data with id ${id}`,
-        });
+      res.status(500).json({
+        success: false,
+        message: `Failed to fetch data with id ${id}`,
+      });
     }
   },
 };
