@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "./backend/server.js",
   "scripts": {
-    "dev": "nodemon ./backend/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "nodemon ./backend/server.js",
+    "dev:frontend": "npm run dev --prefix frontend",
     "seed": "node ./backend/seeds/products.js"
   },
   "type": "module",
@@ -26,6 +27,7 @@
     "pg": "^8.16.3"
   },
   "devDependencies": {
+    "concurrently": "^10.0.4",
     "dotenv-cli": "^10.0.0"
   }
 }
