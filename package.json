@@ -4,7 +4,8 @@
   "main": "./backend/server.js",
   "scripts": {
     "dev": "nodemon ./backend/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "node ./backend/seeds/products.js"
   },
   "type": "module",
   "keywords": [],
