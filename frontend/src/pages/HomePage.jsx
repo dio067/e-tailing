@@ -1,57 +1,65 @@
-import { useEffect } from "react";
-import { useProductStore } from "../store/useProductStore";
-import { PackageIcon, PlusCircleIcon, RefreshCwIcon } from "lucide-react";
-import ProductCard from "../components/ProductCards";
-import AddProductModal from "../components/AddProductModal";
+import { useEffect } from 'react';
+import { PackageIcon, PlusCircleIcon, RefreshCwIcon } from 'lucide-react';
+import { useProductStore } from '../store/useProductStore';
+import ProductCard from '../components/ProductCards';
+import AddProductModal from '../components/AddProductModal';
 
 function HomePage() {
   const { products, loading, error, fetchProducts } = useProductStore();
-
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
 
   return (
-    <main className="max-w-6xl mx-auto px-4 py-8 ">
-      <div className="flex justify-between items-center mb-8">
-        <button
-          className="btn btn-primary"
-          onClick={() => document.getElementById("add_product_modal").showModal()}
-        >
-          <PlusCircleIcon className="size-5 mr-2" />
-          Add Product
-        </button>
-        <button className="btn btn-ghost btn-circle" onClick={fetchProducts}>
-          <RefreshCwIcon className="size-5" />
-        </button>
+    <main className="max-w-6xl mx-auto px-4 py-10">
+      <div className="flex justify-between items-end mb-8">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-ink-soft">
+            Inventory
+          </p>
+          <h1 className="font-display text-3xl mt-1">Catalog</h1>
+        </div>
+        <div className="flex gap-2">
+          <button className="icon-btn" onClick={fetchProducts}>
+            <RefreshCwIcon className="size-5" />
+          </button>
+          <button
+            className="btn-primary"
+            onClick={() =>
+              document.getElementById('add_product_modal').showModal()
+            }
+          >
+            <PlusCircleIcon className="size-4" /> Add product
+          </button>
+        </div>
       </div>
 
       <AddProductModal />
 
-      {error && <div className="alert alert-error mb-8">{error}</div>}
+      {error && (
+        <div className="border border-danger/30 text-danger text-sm rounded-sm px-4 py-3 mb-6">
+          {error}
+        </div>
+      )}
 
-      {products.length === 0 && !loading && (
-        <div className="flex flex-col justify-center items-center h-96 space-y-4">
-          <div className="bg-base-100 rounded-full p-6">
-            <PackageIcon className="size-12" />
-          </div>
-          <div className="text-center space-y-2">
-            <h3 className="text-2xl font-semibold ">No products found</h3>
-            <p className="text-gray-500 max-w-sm">
-              Get started by adding your first product to the inventory
-            </p>
-          </div>
+      {!loading && products.length === 0 && (
+        <div className="empty-state">
+          <PackageIcon className="size-10 text-ink-soft mb-4" />
+          <h3 className="font-display text-2xl">No products yet</h3>
+          <p className="text-ink-soft mt-1 max-w-sm">
+            Add your first item to start building the catalog.
+          </p>
         </div>
       )}
 
       {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <div className="loading loading-spinner loading-lg" />
+        <div className="flex justify-center py-24">
+          <span className="font-mono text-sm text-ink-soft">Loading…</span>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+          {products.map((p) => (
+            <ProductCard key={p.id} product={p} />
           ))}
         </div>
       )}
