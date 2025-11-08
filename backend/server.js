@@ -10,6 +10,7 @@ import productRouter from './routes/productsRoute.js';
 dotenv.config();
 
 const app = express();
+
 app.use(express.json());
 
 const PORT = process.env.PORT;
@@ -20,11 +21,10 @@ app.use(morgan('dev'));
 
 app.use(async (req, res, next) => {
   try {
-    const decision = await arcjet.protect(req, {
-      requested: 1,
-    });
-    if (decision.isDenied) {
-      if (decision.isRateLimited) {
+    const decision = await arcjet.protect(req, { requested: 1 });
+
+    if (decision.isDenied()) {
+      if (decision.reason.isRateLimit()) {
         res.status(429).json({ error: 'Too Many Requests' });
       } else if (decision.reason.isBot()) {
         res.status(403).json({ error: 'Bot Access Denied' });
@@ -36,18 +36,20 @@ app.use(async (req, res, next) => {
 
     if (
       decision.results.some(
-        (result) => result.isBot() && result.reason.isSpoofed(),
+        (result) => result.reason.isBot() && result.reason.isSpoofed(),
       )
     ) {
       res.status(403).json({ error: 'spoofed bot detected' });
       return;
     }
+
     next();
   } catch (err) {
     console.log('Arcjet Error:', err);
     next(err);
   }
 });
+
 app.use('/api/products', productRouter);
 
 async function initDB() {
