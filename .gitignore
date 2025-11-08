@@ -1,8 +1,9 @@
-
-node_modules
-*.json
-.prettierrc
+node_modules/
 .env
-!package.json
-!package-lock.json
+.env.local
+dist/
+build/
+*.log
+.DS_Store
+.vscode/
 .rest
