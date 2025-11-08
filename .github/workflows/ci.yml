@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 20
       - run: npm install
-      - run: node -c backend/server.js
+      - run: node -c packages/backend/server.js
 
   frontend:
     runs-on: ubuntu-latest
@@ -26,6 +26,6 @@ jobs:
         with:
           node-version: 20
       - run: npm install
-        working-directory: frontend
+        working-directory: packages/frontend
       - run: npm run build
-        working-directory: frontend
+        working-directory: packages/frontend
