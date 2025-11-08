@@ -9,7 +9,8 @@ function Navbar() {
   const products = useProductStore((s) => s.products);
 
   return (
-    <div className="sticky top-0 z-40 bg-paper/90 backdrop-blur border-b border-line">
+    <div className="sticky top-0 z-40 bg-paper/90 dark:bg-ink/90 backdrop-blur border-b border-line dark:border-white/10">
+      {' '}
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
           <TagIcon className="size-6 text-primary" />

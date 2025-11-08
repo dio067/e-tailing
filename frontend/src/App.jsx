@@ -6,7 +6,8 @@ import ProductPage from './pages/ProductPage';
 
 function App() {
   return (
-    <div className="min-h-screen bg-paper">
+    <div className="min-h-screen bg-paper dark:bg-ink text-ink dark:text-paper transition-colors duration-200">
+      {' '}
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />

@@ -26,27 +26,33 @@
     @apply btn bg-primary text-paper hover:bg-primary-dark;
   }
   .btn-outline {
-    @apply btn border border-ink/15 text-ink hover:border-ink/40 bg-transparent;
+    @apply btn border border-ink/15 dark:border-paper/25 text-ink dark:text-paper
+    hover:border-ink/40 dark:hover:border-paper/50 bg-transparent;
   }
   .btn-ghost {
-    @apply btn text-ink-soft hover:text-ink hover:bg-ink/5;
+    @apply btn text-ink-soft dark:text-paper/70 hover:text-ink dark:hover:text-paper
+    hover:bg-ink/5 dark:hover:bg-paper/10;
   }
   .btn-danger {
     @apply btn border border-danger/30 text-danger hover:bg-danger hover:text-paper;
   }
   .icon-btn {
-    @apply inline-flex items-center justify-center size-10 rounded-full text-ink-soft hover:text-ink hover:bg-ink/5 transition-colors duration-150;
+    @apply inline-flex items-center justify-center size-10 rounded-full
+    text-ink-soft dark:text-paper/70 hover:text-ink dark:hover:text-paper
+    hover:bg-ink/5 dark:hover:bg-paper/10 transition-colors duration-150;
   }
 
   .field-label {
     @apply block font-mono text-[0.7rem] uppercase tracking-[0.14em] text-ink-soft mb-2;
   }
-  .field-input {
-    @apply w-full rounded-sm border border-line bg-paper px-3.5 py-2.5 font-body text-sm text-ink placeholder:text-ink-soft/50 outline-none transition-colors duration-150 focus:border-primary;
-  }
-
   .tag-card {
-    @apply relative bg-white border border-line rounded-card overflow-hidden transition-shadow duration-200 hover:shadow-[0_8px_24px_-8px_rgba(28,26,23,0.18)];
+    @apply relative bg-white dark:bg-ink-soft/10 border border-line dark:border-white/10 rounded-card overflow-hidden
+    transition-shadow duration-200 hover:shadow-[0_8px_24px_-8px_rgba(28,26,23,0.18)];
+  }
+  .field-input {
+    @apply w-full rounded-sm border border-line dark:border-white/10 bg-paper dark:bg-ink px-3.5 py-2.5 font-body text-sm text-ink dark:text-paper
+    placeholder:text-ink-soft/50 outline-none transition-colors duration-150
+    focus:border-primary;
   }
   .tag-punch {
     @apply absolute left-4 top-4 z-10 size-3 rounded-full bg-paper border border-line;
