@@ -2,14 +2,13 @@ import pg from '../config/db.js';
 
 export default {
   getProducts: async (req, res) => {
-    // Logic to retrieve products
     try {
       const products = await pg`
        SELECT * FROM products;
       `;
       res.status(200).json({ success: true, data: products });
     } catch (error) {
-      res.status(500).json({ success: false, message: 'Faild to fetch data' });
+      res.status(500).json({ success: false, message: 'Failed to fetch data' });
     }
   },
   createProduct: async (req, res) => {
@@ -27,7 +26,9 @@ export default {
 
       res.status(201).json({ success: true, data: product[0] });
     } catch (error) {
-      res.status(500).json({ success: false, message: 'Faild to insert data' });
+      res
+        .status(500)
+        .json({ success: false, message: 'Failed to insert data' });
     }
   },
   deleteProduct: async (req, res) => {
@@ -42,7 +43,7 @@ export default {
     } catch (error) {
       res.status(500).json({
         success: false,
-        message: 'Faild to delete data',
+        message: 'Failed to delete data',
       });
     }
   },
@@ -66,7 +67,7 @@ export default {
       console.log(error);
       res.status(500).json({
         success: false,
-        message: `Faild to update  data with id ${id}`,
+        message: `Failed to update  data with id ${id}`,
       });
     }
   },
@@ -79,7 +80,10 @@ export default {
     } catch (error) {
       res
         .status(500)
-        .json({ success: false, message: `Faild to fetch data with id ${id}` });
+        .json({
+          success: false,
+          message: `Failed to fetch data with id ${id}`,
+        });
     }
   },
 };
