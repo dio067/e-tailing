@@ -18,31 +18,36 @@ app.use(helmet());
 app.use(cors());
 app.use(morgan('dev'));
 
-app.use( async (req, res, next) => {
+app.use(async (req, res, next) => {
   try {
     const decision = await arcjet.protect(req, {
-      requested: 1
-    }) 
+      requested: 1,
+    });
     if (decision.isDenied) {
-      if ( decision.isRateLimited ) {
-        res.status(429).json ( {error: 'Too Many Requests'})
-      } else if ( decision.reason.isBot()) {
-        res.status(403).json ( { error: 'Bot Access Denied'})
+      if (decision.isRateLimited) {
+        res.status(429).json({ error: 'Too Many Requests' });
+      } else if (decision.reason.isBot()) {
+        res.status(403).json({ error: 'Bot Access Denied' });
       } else {
-        res.status(403).json ( { error: 'Forbidden'})
+        res.status(403).json({ error: 'Forbidden' });
       }
-       return;
+      return;
     }
 
-    if ( decision.results.some( (result) => result.isBot() && result.reason.isSpoofed())) {
-      res.status(403).json( { error: 'spoofed bot detected'})
+    if (
+      decision.results.some(
+        (result) => result.isBot() && result.reason.isSpoofed(),
+      )
+    ) {
+      res.status(403).json({ error: 'spoofed bot detected' });
       return;
     }
     next();
   } catch (err) {
-    console.log('Arcjet Error:', err)
-    next(err)
-  }})
+    console.log('Arcjet Error:', err);
+    next(err);
+  }
+});
 app.use('/api/products', productRouter);
 
 async function initDB() {
@@ -67,5 +72,3 @@ initDB().then(() => {
     console.log(`Running Server on port ${PORT}`);
   });
 });
-
-console.log('DB IS INITIALIZED');
