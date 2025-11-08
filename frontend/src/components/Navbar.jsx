@@ -1,47 +1,30 @@
-import React from 'react'
-import {Link, useResolvedPath} from 'react-router-dom'
-import { ShoppingCartIcon } from 'lucide-react'
-function Navbar() {
+import { Link, useResolvedPath } from 'react-router-dom';
+import { TagIcon } from 'lucide-react';
+import { useProductStore } from '../store/useProductStore';
+import ThemeSelector from './ThemeSelector';
 
+function Navbar() {
   const { pathname } = useResolvedPath();
   const isHomePage = pathname === '/';
-
+  const products = useProductStore((s) => s.products);
 
   return (
-    <div>
-     <div className="bg-base-100/80 backdrop-blur-lg border-base-content/10 sticky top-0 z-50">
-         <div className="max-w-7xl mx-auto" >
-            <div className="navbar px-4 min-h-[4rem] justify-between">
-                <div className="flex-1 lg:flex-none">
-                    <Link to="/" className='hover:opacity-80 transition-opacity'>
-                        <div className="flex items-center gap-2">
-                            <ShoppingCartIcon className="size-9 text-primary"/>
-                            <span className="font-semibold font-mono tracking-widest text-2xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-                                E-Tailing
-                            </span>
-                        </div>
-
-                    </Link>
-                </div>
-                <div className="flex items-center gap-4">
-                    <p>ThemeSelector</p>
-
-                            {isHomePage && (
-              <div className="indicator">
-                <div className="p-2 rounded-full hover:bg-base-200 transition-colors">
-                  <ShoppingBagIcon className="size-5" />
-                  <span className="badge badge-sm badge-primary indicator-item">
-                    {products.length}
-                  </span>
-                </div>
-              </div>
-            )}
-                </div>
-            </div>
-         </div>
-     </div>
+    <div className="sticky top-0 z-40 bg-paper/90 backdrop-blur border-b border-line">
+      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2">
+          <TagIcon className="size-6 text-primary" />
+          <span className="font-display text-xl tracking-tight">E-Tailing</span>
+        </Link>
+        <div className="flex items-center gap-2">
+          {isHomePage && (
+            <span className="font-mono text-xs text-ink-soft border border-line rounded-full px-3 py-1">
+              {products.length} item{products.length !== 1 ? 's' : ''}
+            </span>
+          )}
+          <ThemeSelector />
+        </div>
+      </div>
     </div>
-  )
+  );
 }
-
-export default Navbar
+export default Navbar;
