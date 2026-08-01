@@ -65,3 +65,5 @@ Start the backend & frontend in Root dir:
 ```bash
 npm run dev
 ```
+
+**Live demo:** https://e-tailing.vercel.app
